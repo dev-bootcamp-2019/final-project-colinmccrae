@@ -1,0 +1,31 @@
+{
+  "name": "final-project-colinmccrae",
+  "version": "1.0.0",
+  "description": "final project",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "jsts": "^2.0.3",
+    "npm": "^6.6.0",
+    "openzeppelin-solidity": "^2.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-bootcamp-2019/final-project-colinmccrae.git"
+  },
+  "keywords": [
+    "ethereum"
+  ],
+  "author": "colinmccrae",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-bootcamp-2019/final-project-colinmccrae/issues"
+  },
+  "homepage": "https://github.com/dev-bootcamp-2019/final-project-colinmccrae#readme"
+}

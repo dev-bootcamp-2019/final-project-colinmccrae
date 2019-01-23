@@ -1,9 +1,11 @@
 pragma solidity ^0.5.0;
 
-contract SimpleBet {
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
+
+contract SimpleBet is Ownable, Pausable {
 
     // Game and Global Variables
-    address public owner;
     uint8 public blockDelay; // How many blocks to wait to resolve RNG and allow payout
     uint8 public blockExpiration; // How many blocks until bet expires
     uint256 public maxBet; // Minimum bet size
@@ -29,7 +31,6 @@ contract SimpleBet {
 
     // Constructor with contract deployment inital settings 
     constructor() public {    
-        owner = msg.sender;
         blockDelay = 0;          // How many blocks to wait to resolve RNG and allow payout
         blockExpiration = 100;    // How many blocks until bet expires
         minBet = 10 finney;        // Minimum bet size (1 Ether = 1,000 Finney)
@@ -37,13 +38,10 @@ contract SimpleBet {
 
     }
 
-    modifier onlyOwner() {
-        require(msg.sender==owner, "Must be owner.");
-        _;
-    }
 
     function addBankroll() public payable 
-        onlyOwner {
+        onlyOwner
+        whenNotPaused {
     }
 
     // Enable and disable betting
@@ -51,12 +49,13 @@ contract SimpleBet {
     States private contract_state;
     
     function disableBetting_only_Owner() public
-        onlyOwner {
-        contract_state = States.inactive;
+        onlyOwner 
+        whenNotPaused {
     }
 
     function enableBetting_only_Owner() public
-        onlyOwner {
+        onlyOwner
+        whenNotPaused {
         contract_state = States.active;
     }
 
