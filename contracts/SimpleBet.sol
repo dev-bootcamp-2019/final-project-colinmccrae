@@ -20,14 +20,13 @@ contract SimpleBet is Ownable, Pausable {
         uint256 wager;
         uint256 blockNumber; //block of bet
         uint256 blockResolved; //block of spin
-        uint8 betResult;
+        bool betResult;
     }
-
-    Bet[] private bet;
+    Bet private bet;
     
     //records current status of player
-    enum Status {waitingForBet, waitingForResolved}
-
+    enum Status {waitingForBet, waitingForResolve}
+    Status private playerStatus;
 
     // Constructor with contract deployment inital settings 
     constructor() public {    
@@ -37,7 +36,6 @@ contract SimpleBet is Ownable, Pausable {
         maxBet = 1000 finney;     // Maximum bet size (1 Ether = 1,000 Finney)
 
     }
-
 
     function addBankroll() public payable 
         onlyOwner
@@ -51,6 +49,7 @@ contract SimpleBet is Ownable, Pausable {
     function disableBetting_only_Owner() public
         onlyOwner 
         whenNotPaused {
+        contract_state = States.inactive;
     }
 
     function enableBetting_only_Owner() public
@@ -63,6 +62,56 @@ contract SimpleBet is Ownable, Pausable {
         require (contract_state!=States.inactive, "Contract inactive.");
         _;
     }
+
+    // If player doesn't specify bet, make the default bet true (heads)
+    function () external payable // Fallback function
+        {
+        bet.input = true;
+    } 
+
+    // Ensure bet size is in range
+    function checkBetValue() private returns(uint256) {
+        uint256 playerBetValue;
+        require (msg.value >= minBet, "Bet too small.");
+
+        if (msg.value > maxBet){
+            playerBetValue = maxBet;
+        }
+        else {
+            playerBetValue = msg.value;
+        }
+        return playerBetValue;
+    }
+
+    // Record the bet details
+    function placeBet(bool input_) public 
+        payable
+        onlyActive
+        whenNotPaused {
+        if (playerStatus == Status.waitingForBet) {
+            resolveBet(msg.sender);
+        }
+        // Once this is done, we can record the new bet
+        playerStatus = Status.waitingForResolve;
+
+        // Ensure bet size is in range
+        uint256 betValue = checkBetValue();
+        // Bet(player address, rngRevolved, win, input, wager, blockNumber, blockResoved, betResult)
+        bet = Bet(msg.sender, false, false, input_, betValue, block.number, 0, false);
+
+        // Refund excess bet to user (do this at the very last step to prevent re-entrancy attack)
+        if (betValue < msg.value) {
+            msg.sender.transfer(msg.value - betValue);
+        }
+    }
+
+    function resolveBet(address playerSpun) private {
+
+    }
+
+
+
+
 
 
 }

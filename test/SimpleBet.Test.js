@@ -17,7 +17,7 @@ contract("SimpleBet", accounts => {
   it("...should unpause when instructed.", async () => {
     const simpleBetInstance = await SimpleBet.deployed();
 
-    // Unause contract
+    // Unpause contract
     await simpleBetInstance.unpause( { from: accounts[0] });
 
     // Check if unpaused
