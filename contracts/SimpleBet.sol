@@ -4,7 +4,7 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 /// @author Colin McCrae, colin.mccrae@gmail.com
-/// @title final-project-colinmccrae
+/// @title final-project-colinmccrae: SimpleBet
 contract SimpleBet is Ownable, Pausable {
 
     // Game and global variables
