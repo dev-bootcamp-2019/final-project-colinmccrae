@@ -50,11 +50,11 @@ contract SimpleBet is Ownable, Pausable {
     // blockExpiration How many blocks until bet expires
     // minBet Minimum bet size (1 Ether = 1,000 Finney)
     // maxBet Maximum bet size (1 Ether = 1,000 Finney)
-    constructor() public {    
-        blockDelay = 0;          // How many blocks to wait to resolve RNG and allow payout
-        blockExpiration = 100;    // How many blocks until bet expires
-        minBet = 10 finney;        // Minimum bet size (1 Ether = 1,000 Finney)
-        maxBet = 1000 finney;     // Maximum bet size (1 Ether = 1,000 Finney)
+    constructor() public {
+        blockDelay = 0;
+        blockExpiration = 100;
+        minBet = 10 finney;
+        maxBet = 1000 finney;
     }
 
     /// @dev The owner can add more bankroll to the contract when the contract is not paused (even if betting is disabled)
