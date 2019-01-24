@@ -1,6 +1,6 @@
 const SimpleBet = artifacts.require("./SimpleBet.sol");
 
-/// @author Colin McCrae, colin.mccrae@gmail.com
+/// @author Colin McCrae, colin.mccrae@gmail.com 
 /// @title final-project-colinmccrae: SimpleBet.Test
 contract("SimpleBet", accounts => {
   /// @dev Test to ensure contract pauses when instructed using OpenZeppelin inheritied contract 'Pausable.sol'
