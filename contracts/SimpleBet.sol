@@ -5,6 +5,7 @@ import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 /// @author Colin McCrae, colin.mccrae@gmail.com
 /// @title final-project-colinmccrae: SimpleBet
+/// @dev Contract SimpleBet will inherit the contracts Ownable and Pausable from the OpenZeppelin libarary (/node_modules/openzeppelin-solidity/contracts) 
 contract SimpleBet is Ownable, Pausable {
 
     // Game and global variables

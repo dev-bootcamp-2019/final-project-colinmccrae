@@ -70,7 +70,7 @@ The following steps will allow the project to be evaluated. The terminal command
 
    $ `truffle test`
 
-9. To run the apps JavaScript React development server UI. This should automoatically open your default browser (you'll need Google Chrome with Metamask Plug-in installed) and bring up the app at the local address (http://localhost:3000/). Note that it will prompt you to sign into Metamask if you are not already signed in. 
+9. Run the app's JavaScript React development server locally to bring up the app UI. These commands should automoatically open your default browser (you'll need Google Chrome with Metamask Plug-in installed) and bring up the app at the local address (URL = http://localhost:3000/) where you can interact with the app. Note that it will prompt you to sign into Metamask if you are not already signed in. 
 
    $ `cd client`
    

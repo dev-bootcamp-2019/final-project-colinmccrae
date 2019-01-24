@@ -5,7 +5,7 @@ import getWeb3 from "./utils/getWeb3";
 import "./App.css";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  state = { storageValue: 0, web3: null, accounts: null, contract: null, currentBalance: null };
 
   componentDidMount = async () => {
     try {
@@ -14,6 +14,8 @@ class App extends Component {
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
+      const balance = await web3.eth.getBalance(accounts[0]);
+      const currentBalance = balance / 10 ** 18;
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
@@ -25,11 +27,11 @@ class App extends Component {
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
+      this.setState({ web3, accounts, contract: instance, currentBalance }, this.runExample);
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
+        `Failed to load web3, accounts, balance, or contract. Check console for details.`,
       );
       console.error(error);
     }
@@ -50,13 +52,31 @@ class App extends Component {
 
   render() {
     if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
+      return <div>Loading Web3, accounts, balance, and contract...</div>;
     }
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2>
+        <h1>Simple Bet - An Ethereum Coin Flip Betting App</h1>
+        <h2>(final-project-colinmccrae)</h2>
+        <p>
+          Author: Colin McCrae, colin.mccrae@gmail.com
+        </p>
+        <p>The coin flip app is installed and ready!</p>
+        <p>
+          <br></br>
+        </p>
+
+        <div>Your current Ethereum account address is: {this.state.accounts[0]}</div>
+        <div>Your balance: {this.state.currentBalance} ETH</div>
+                
+        <p>
+          <br></br>
+          <br></br>
+          <br></br>
+        </p>
+
+
+
         <p>
           If your contracts compiled and migrated successfully, below will show
           a stored value of 5 (by default).
