@@ -36,7 +36,7 @@ If the bet wins, an event is triggered, and the user received twice the value of
 + NPM (Node Package Manager)
 + Truffle
 + Ganache (or Ganache-CLI)
-+ Metamask Chrome Plug-in
++ Google Chrome with Metamask Plug-in installed
 + A code editor (e.g. VS Code or Atom)
 
 ### Steps
@@ -44,35 +44,37 @@ The following steps will allow the project to be evaluated. The terminal command
 
 1. Navigate your development folder and clone the project repo from Github. The command below will create a folder 'final-project-colinmccrae' in your chosen development folder. 
 
-$ `git clone https://github.com/dev-bootcamp-2019/final-project-colinmccrae`
+   $ `git clone https://github.com/dev-bootcamp-2019/final-project-colinmccrae`
 
 2. Go into the new folder 
 
-$ `cd final-project-colinmccrae`
+   $ `cd final-project-colinmccrae`
 
 3. To view in a code editor 
 
-$ `code .` for VS Code or `atom .` for Atom
+   $ `code .` for VS Code or `atom .` for Atom
 
 4. To compile the app code
 
-$ `truffle compile`
+   $ `truffle compile`
 
 5. Ensure that you are running Ganache (or Ganache-CLI) on Port 7545 (HTTP://127.0.0.1:7545)
 
-6. Ensure the Metamask Chrome Plug-in is connected to your Ganache (or Ganache-CLI) instance. The requires the same twelve-word seed phrase is used for both.
+6. Ensure the Metamask Chrome Plug-in is connected to your Ganache (or Ganache-CLI) instance. The requires the same twelve-word seed phrase to be used for both.
 
 7. To migrate the contacts to the Ganache local blockchain
 
-$ `truffle migrate`
+   $ `truffle migrate` (if you need to migrate the contract again, you will  need to use `truffle migrate --reset`)
 
 8. To run the app code tests
 
-$ `truffle test`
+   $ `truffle test`
 
-9. To run the React JS app UI 
+9. To run the apps JavaScript React development server UI. This should automoatically open your default browser (you'll need Google Chrome with Metamask Plug-in installed) and bring up the app at the local address (http://localhost:3000/). Note that it will prompt you to sign into Metamask if yoiiu are not already signed in. 
 
-$ `npm run start`
+   $ `cd client`
+   $ `npm run start`
 
+10. You should now be able to use the app's UI. When approving a transaction in Metamask, if you get a nonce mismatch error that is due to Metamask being out of sync with Ganache and you will need to reset both.
 
-
+11. Ctrl+C to exit the development server in Terminal.
