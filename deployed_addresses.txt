@@ -1,0 +1,2 @@
+The contract has been depolyed on the Rinkeby test net at the following address:
+0x

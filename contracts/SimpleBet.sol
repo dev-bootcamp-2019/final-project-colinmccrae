@@ -5,7 +5,8 @@ import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 /// @author Colin McCrae, colin.mccrae@gmail.com
 /// @title final-project-colinmccrae: SimpleBet
-/// @dev Contract SimpleBet will inherit the contracts Ownable and Pausable from the OpenZeppelin libarary (/node_modules/openzeppelin-solidity/contracts) 
+/// @dev Contract SimpleBet will inherit the contracts Ownable and Pausable from the OpenZeppelin libarary (/node_modules/openzeppelin-solidity/contracts)
+/// @dev Pausable is a circuit breaker which blocks all contract functions expect withdrawl by the owner 
 contract SimpleBet is Ownable, Pausable {
 
     // Game and global variables
@@ -113,7 +114,7 @@ contract SimpleBet is Ownable, Pausable {
     /// @dev Fuction records the bet details. To be public as it will be called by the user.
     /// @dev User sends Ether as the bet. This function only works when betting is enabled, and contract not paused.  
     /// @param input_ The user's bet (true = heads, false = tails) 
-    function placeBet(bool input_) public 
+    function playerStatus(bool input_) public 
         payable
         onlyActive
         whenNotPaused {
@@ -142,7 +143,13 @@ contract SimpleBet is Ownable, Pausable {
     }
 
 
-
+    // function withdraw() public {
+    //     uint amount = pendingWithdrawals[msg.sender];
+    //     // Remember to zero the pending refund before
+    //     // sending to prevent re-entrancy attacks
+    //     pendingWithdrawals[msg.sender] = 0;
+    //     msg.sender.transfer(amount);
+   }
 
 
 
