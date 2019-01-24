@@ -4,7 +4,7 @@ _This app was developed for submission as the final project for the ConsenSys Ac
 _Author: Colin McCrae. Email: colin.mccrae@gmail.com_
 
 
-## Avoiding Common Atttacks - Used In This Project
+## Avoiding Common Atttacks - Measures Used In This Project
 The solidity contract within this app implements a number of measures to avoid common attacks, based on knowledge gained during the ConsenSys Academy Developer Bootcamp. These are described below.
 
 ### 1. Race Conditions: Reentrancy
@@ -71,7 +71,7 @@ The general advice is:
 This attack vector has been mitigated in this app by the following:  
 + Never iterating over an array of undetermined length.
 
-### 8. Force Send Ethere
+### 8. Force Send Ether
 Another danger is using logic that depends on the contract balance. Be aware that it is possible to send ether to a contract without triggering its fallback function. Using the selfdestruct function on another contract and using the target contract as the recipient will force the destroyed contract’s funds to be sent to the target. 
 
 Ether can be forcibly sent to contracts in two main ways:
@@ -101,5 +101,5 @@ After hard fork, there are two simlar blockchains running in parallel, eg. ETC f
 + Keep in mind this is possible after a hard fork. 
 + Not an issue on one blockchain.
 
-## Avoiding Common Atttacks - Not Used In This Project
+## Avoiding Common Atttacks - Measures Not Used In This Project
 There are a number of other measures to avoid common attacks that are not used in this contract. These are described below.

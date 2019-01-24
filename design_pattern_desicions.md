@@ -4,7 +4,7 @@ _This app was developed for submission as the final project for the ConsenSys Ac
 _Author: Colin McCrae. Email: colin.mccrae@gmail.com_
 
 
-## Design Pattern Decisions - Used In This Project
+## Design Pattern Decisions - Patterns Used In This Project
 The solidity contract within this app implements a number of design pattern decisions, based on knowledge gained during the ConsenSys Academy Developer Bootcamp. These are described below.
 
 ### 1. Withdrawal 
@@ -35,7 +35,7 @@ tx.origin breaks compatibility. Using tx.origin means that your contract cannot 
 
 tx.origin is almost never useful - there are almost no legitimate uses for it.
 
-## Design Pattern Decisions - Not Used In This Project
+## Design Pattern Decisions - Patterns Not Used In This Project
 There are a number of other useful design patter decisions that are not used in this contract. These are described below.
 
 ### 5. Short Circuit Rules (to save gas)
