@@ -1,9 +1,7 @@
 # final-project-colinmccare
-_This app was developed for submission as the final prorject for the ConsenSys Academy Developer Bootcamp 2019._
+_This app was developed for submission as the final project for the ConsenSys Academy Developer Bootcamp 2019._
 
-_Author: Colin McCrae._
-
-_Email: colin.mccrae@gmail.com_
+_Author: Colin McCrae. Email: colin.mccrae@gmail.com_
 
 
 ## Project Requirements
@@ -14,7 +12,7 @@ _Email: colin.mccrae@gmail.com_
 The requirements for this file are as below:
 
 > Project includes a README.md that explains the project.
-
+> 
 > (5 points) - The README should include a description of what the app does and how to set it up for evaluation.
 
 ### Repo Location
@@ -23,16 +21,16 @@ The requirements for this file are as below:
 ## App Description
 This app is a very simple betting app, based around a coin flip (heads or tails).
 
-The user is able to select how much they would like to bet, and whether they think the result will be heads or tails.
+The user can select how much they would like to bet, and whether they think the result will be heads or tails.
 
 The information for the bet is saved on a block on the blockchain.
 
 In a future block, the same user can come back and evaluate their bet to see if they won. The result is randomly generated based on the hash of the block in which the user requests their bet is evaluated.
 
-If the bet wins, an event is triggered and the user received twice the value of his or her bet back. If the bet loses, only an event is triggered.
+If the bet wins, an event is triggered, and the user received twice the value of his or her bet back. If the bet loses, only an event is triggered.
 
-## How To Set Up For Evaluation
-### Pre-requisits
+## How to Set Up for Evaluation
+### Pre-requisites
  It is presumed that the evaluator has the following applications already installed:
 + Git
 + NPM (Node Package Manager)
@@ -44,7 +42,7 @@ If the bet wins, an event is triggered and the user received twice the value of 
 ### Steps
 The following steps will allow the project to be evaluated. The terminal commands are based on using Ubuntu Linux 18.04 (or 18.10).
 
-1. Navigate your development folder, and clone the project repo from Github. The command below will create a folder 'final-project-colinmccrae' in your chosen development folder. 
+1. Navigate your development folder and clone the project repo from Github. The command below will create a folder 'final-project-colinmccrae' in your chosen development folder. 
 
 $ `git clone https://github.com/dev-bootcamp-2019/final-project-colinmccrae`
 
@@ -62,7 +60,7 @@ $ `truffle compile`
 
 5. Ensure that you are running Ganache (or Ganache-CLI) on Port 7545 (HTTP://127.0.0.1:7545)
 
-6. Ensure the Metamask Chrome Plug-in is connected to your Ganache (or Ganache-CLI) instance. The requires the same tweleve word seed phrase is used for both.
+6. Ensure the Metamask Chrome Plug-in is connected to your Ganache (or Ganache-CLI) instance. The requires the same twelve-word seed phrase is used for both.
 
 7. To migrate the contacts to the Ganache local blockchain
 
