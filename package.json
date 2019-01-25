@@ -9,7 +9,8 @@
   "dependencies": {
     "jsts": "^2.0.3",
     "npm": "^6.6.0",
-    "openzeppelin-solidity": "^2.1.2"
+    "openzeppelin-solidity": "^2.1.2",
+    "truffle-assertions": "^0.7.2"
   },
   "devDependencies": {},
   "scripts": {
