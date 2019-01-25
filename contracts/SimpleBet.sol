@@ -38,13 +38,15 @@ contract SimpleBet is Ownable, Pausable {
         uint256 blockResolved;
         bool betResult;
     }
-    Bet private bet;
+    Bet public bet;
     
     // Tracks the current bet status
     enum Status {waitingForBet, waitingForResolve}
     // playerStatus.waitingForBet Contract is ready to accept a bet
     // playerStatus.waitingForResolve Contract is ready to resolve a bet
     Status private playerStatus;
+
+    event bankrollUpdated(uint _newBankroll);
 
     /// @dev Constructor with contract deployment inital settings 
     // blockDelay How many blocks to wait to resolve RNG and allow payout
@@ -58,10 +60,25 @@ contract SimpleBet is Ownable, Pausable {
         maxBet = 1000 finney;
     }
 
+    /// @dev The fallback function (if player doesn't specify heads or tails) makes the default bet true (heads)
+    function () external payable
+        {
+        bet.input = true;
+    } 
+
     /// @dev The owner can add more bankroll to the contract when the contract is not paused (even if betting is disabled)
     function addBankroll() public payable 
         onlyOwner
         whenNotPaused {
+        emit bankrollUpdated(address(this).balance);   
+    }
+
+    /// @dev The owner can add more bankroll to the contract when the contract is not paused (even if betting is disabled)
+    /// @param amount Value to be withdrawn in wei
+    function withdrawBankroll(uint amount) public 
+        onlyOwner {
+        msg.sender.transfer(amount);
+        emit bankrollUpdated(address(this).balance);  
     }
 
     // An emum which keeps track of whether betting is enabled or disabled
@@ -90,15 +107,9 @@ contract SimpleBet is Ownable, Pausable {
         _;
     }
 
-    /// @dev The fallback function (if player doesn't specify heads or tails) makes the default bet true (heads)
-    function () external payable
-        {
-        bet.input = true;
-    } 
-
     /// @dev Function ensures the bet size is in the valid range
     /// @return playerBetValue The accepted bet value   
-    function checkBetValue() private returns(uint256) {
+    function checkBetValue() public payable returns(uint256) {
         uint256 playerBetValue;
         require (msg.value >= minBet, "Bet too small.");
 
@@ -114,7 +125,7 @@ contract SimpleBet is Ownable, Pausable {
     /// @dev Fuction records the bet details. To be public as it will be called by the user.
     /// @dev User sends Ether as the bet. This function only works when betting is enabled, and contract not paused.  
     /// @param input_ The user's bet (true = heads, false = tails) 
-    function playerStatus(bool input_) public 
+    function placeBet(bool input_) public 
         payable
         onlyActive
         whenNotPaused {
@@ -143,13 +154,6 @@ contract SimpleBet is Ownable, Pausable {
     }
 
 
-    // function withdraw() public {
-    //     uint amount = pendingWithdrawals[msg.sender];
-    //     // Remember to zero the pending refund before
-    //     // sending to prevent re-entrancy attacks
-    //     pendingWithdrawals[msg.sender] = 0;
-    //     msg.sender.transfer(amount);
-   }
 
 
 
