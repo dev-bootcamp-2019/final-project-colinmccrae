@@ -44,26 +44,151 @@ class App extends Component {
   constructor (props) {
     super (props);
 
-    console.log('binding addBankroll');
+    console.log('Binding enableBetting');
+    this.enableBettingHere = this.enableBettingHere.bind (this);
+
+    console.log('Binding disableBetting');
+    this.disableBettingHere = this.disableBettingHere.bind (this);
+
+    console.log('Binding addBankroll');
     this.addBankrollHere = this.addBankrollHere.bind (this);
+
+    console.log('Binding removeBankroll');
+    this.removeBankrollHere = this.removeBankrollHere.bind (this);
+    
+    console.log('Binding placeBet');
+    this.placeBetHereHeads = this.placeBetHereHeads.bind (this);  
+
+    console.log('Binding placeBet');
+    this.placeBetHereTails = this.placeBetHereTails.bind (this);
+    
+    console.log('Binding resolveBet');
+    this.resolveBetHere = this.resolveBetHere.bind (this);
+    
+    // console.log('Binding refreshValues');
+    // this.refreshValuesHere = this.refreshValuesHere.bind (this);
+
 
   }  // End of constructor
 
-  addBankrollHere () {
+  enableBettingHere () {
+    console.log ('Enable betting function called.');
     const { accounts, contract } = this.state;
 
-    contract.methods.addBankroll().send({ from: accounts[0], value: (5 * 10**18) });
+    contract.methods.enableBetting_only_Owner().send({ from: accounts[0] }, (err, result) => {
+              if (err) {
+                console.error ('An error occured:', err);
+              }
+              else {
+                console.log ('Enable betting function successful.');
+              }
+            } );
+  }
 
-    console.log ('Additional bankroll has been added.');
+  disableBettingHere () {
+    console.log ('Disable betting function called.');
+    const { accounts, contract } = this.state;
 
+    contract.methods.disableBetting_only_Owner().send({ from: accounts[0] }, (err, result) => {
+      if (err) {
+        console.error ('An error occured:', err);
+      }
+      else {
+        console.log ('Disable betting function successful');
+      }
+    }  );
+  }
+
+  addBankrollHere () {
+    console.log ('Additional bankroll function called.');
+    const { accounts, contract } = this.state;
+
+    contract.methods.addBankroll().send({ from: accounts[0], value: (5 * 10**18) }, (err, result) => {
+      if (err) {
+        console.error ('An error occured:', err);
+      }
+      else {
+        console.log ('Additional bankroll function successful.');
+      }
+    }  );
   }
   
+  removeBankrollHere () {
+    console.log ('Bankroll withdrawal function called.');
+    const { accounts, contract } = this.state;
+    const howMuchToWithdraw = (5 * 10**18);
 
-  runExample = async () => {
+    contract.methods.withdrawBankroll(howMuchToWithdraw).send( { from: accounts[0] }, (err, result) => {
+      if (err) {
+        console.error ('An error occured:', err);
+      }
+      else {
+        console.log ('Bankroll withdrawal function successful.');
+      }
+    }  );
+  }
+
+  placeBetHereHeads () {
+    console.log ('1 ETH bet on Heads submitted for approval.');
     const { accounts, contract } = this.state;
 
+    contract.methods.placeBet(true).send({ from: accounts[0], value: (1* 10**18) }, (err, result) => {
+      if (err) {
+        console.error ('An error occured:', err);
+      }
+      else {
+        console.log ('1 ETH bet on Heads successfully placed.');
+      }
+    }  );
+  }
+
+  placeBetHereTails () {
+    console.log ('1 ETH bet on Tails submitted for approval.');
+    const { accounts, contract } = this.state;
+
+    contract.methods.placeBet(false).send({ from: accounts[0], value: (1* 10**18) }, (err, result) => {
+      if (err) {
+        console.error ('An error occured:', err);
+      }
+      else {
+        console.log ('1 ETH bet on Tails successfully placed.');
+      }
+    }  );
+  }
+
+  resolveBetHere () {
+    console.log ('Request to resolve and pay out last bet submitted for approval.');
+    const { accounts, contract } = this.state;
+
+    contract.methods.resolveBet(accounts[0]).send({ from: accounts[0] }, (err, result) => {
+      if (err) {
+        console.error ('An error occured:', err);
+      }
+      else {
+        console.log ('Request to resolve and pay out last bet successful.');
+      }
+    }  );
+  }
+
+  // refreshValuesHere () {
+  //   console.log ('Request to refresh.');
+  //   const { accounts, contract } = this.state;
+
+  //   contract.methods.resolveBet(accounts[0]).send({ from: accounts[0] }, (err, result) => {
+  //     if (err) {
+  //       console.error ('An error occured:', err);
+  //     }
+  //     else {
+  //       console.log ('Refresh successful.');
+  //     }
+  //   }  );
+  // }
+
+  runExample = async () => {
+//    const { accounts, contract } = this.state;
+
     // Give the deployed contract a 50 ether bankroll // Stores a given value, 5 by default.
-    await contract.methods.addBankroll().send({ from: accounts[0], value: (50 * 10**18) });
+//    await contract.methods.addBankroll().send({ from: accounts[0], value: (50 * 10**18) });
 
     // Get the value from the contract to prove it worked.
     // const response = await contract.methods.get().call();
@@ -97,31 +222,47 @@ class App extends Component {
 
         <br />
         <br />
-        <button onClick={ this.addBankrollHere }> Start add 5 ETH to bankroll </button>
+        <button onClick={ this.enableBettingHere }> Enable betting on contract </button>
+        <button onClick={ this.disableBettingHere }> Disable betting on contract </button>
+        <br />
+        <br />
+        <button onClick={ this.addBankrollHere }> Add 5 ETH to smart contract's bankroll </button>
+        <button onClick={ this.removeBankrollHere }> Withdraw 5 ETH from smart contract's bankroll </button>
+        <br />
+        <br />
+        <button onClick={ this.placeBetHereHeads }> Bet 1 ETH on Heads </button>
+        <button onClick={ this.placeBetHereTails }> Bet 1 ETH on Tails </button>
+        <br />
+        <button onClick={ this.resolveBetHere }> Resolve last bet </button>
         <br />
         <br />
 
+        <br />
+        <br />
         <p>
           <br></br>
           <br></br>
           <br></br>
         </p>
-
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 40</strong> of App.js.
-        </p>
-        <div>The stored value is: </div>
-
 
 
       </div>
     );
   }
 }
+
+
+// <button onClick={ this.refreshValues }> REFRESH VALUES </button>
+
 //         <div>The stored value is: {this.state.storageValue}</div>
+
+/* <p>
+If your contracts compiled and migrated successfully, below will show
+a stored value of 5 (by default).
+</p>
+<p>
+Try changing the value stored on <strong>line 40</strong> of App.js.
+</p>
+<div>The stored value is: </div> */
 
 export default App;
