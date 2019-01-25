@@ -10,12 +10,8 @@ import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 contract SimpleBet is Ownable, Pausable {
 
     // Game and global variables
-    // blockDelay How many blocks to wait to resolve RNG and allow payout
-    // blockExpiration How many blocks until bet expires
     // maxBet Minimum bet size
     // minBet Maximum bet size
-    uint8 public blockDelay;
-    uint8 public blockExpiration;
     uint256 public maxBet;
     uint256 public minBet;
 
@@ -29,7 +25,7 @@ contract SimpleBet is Ownable, Pausable {
     // Bet.blockResolved The block number the bet is resolved
     // Bet.betResult The result of the random number generation
     struct Bet {
-        address player;
+        address payable player;
         bool resolved;
         bool win;
         bool input;
@@ -49,13 +45,9 @@ contract SimpleBet is Ownable, Pausable {
     event bankrollUpdated(uint _newBankroll);
 
     /// @dev Constructor with contract deployment inital settings 
-    // blockDelay How many blocks to wait to resolve RNG and allow payout
-    // blockExpiration How many blocks until bet expires
     // minBet Minimum bet size (1 Ether = 1,000 Finney)
     // maxBet Maximum bet size (1 Ether = 1,000 Finney)
     constructor() public {
-        blockDelay = 0;
-        blockExpiration = 100;
         minBet = 10 finney;
         maxBet = 1000 finney;
     }
@@ -149,10 +141,31 @@ contract SimpleBet is Ownable, Pausable {
 
     /// @dev Fuction resolves the bet.
     /// @param playerBet Address of player who has made the bet
-    function resolveBet(address playerBet) private {
+    function resolveBet(address payable playerBet) public payable {
+        // Check that a bet has been made to resolve
+        require(playerStatus == Status.waitingForResolve, "No bet placed to resolve");
+        require(playerBet == bet.player, "No pending bets for this address");
+	    // Get a pseudorandom number from the hash of four paramters
+        bytes32 _pseudoRandomResult = keccak256 (abi.encodePacked(msg.sender, msg.data, msg.value, block.number));
+        
+        // Security check to ensure the pseudorandom number is not empty or zero
+        require (_pseudoRandomResult != 0, "Blockhash is 0");
+        
+        // Determine heads or tails (true or false) using modulo division
+        bet.betResult = uint256(_pseudoRandomResult) % 2 == 0;
+
+        // Update status and record result
+        playerStatus = Status.waitingForBet;
+        bet.resolved = true;
+        bet.blockResolved = block.number;
+	
+        if (bet.input == bet.betResult) {
+            bet.win = true;
+            playerBet.transfer(2 * bet.betSize * 10**18);
+        }
+  
 
     }
-
 
 
 
