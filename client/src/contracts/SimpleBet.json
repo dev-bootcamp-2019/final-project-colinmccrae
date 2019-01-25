@@ -9699,12 +9699,12 @@
         }
       },
       "links": {},
-      "address": "0x618e5Af0dadfF33f2DDe97eA547224AF894f0365",
-      "transactionHash": "0xc517b09d692171dcb098291346dad6ce598f5b99c9e4502055d12af4f5d36f52"
+      "address": "0x239b9A183dF19833B3C62d12be856b7153911E6A",
+      "transactionHash": "0xfad3af59e0361658f196cea8dbd6b1e39ba065e4fe9b0a68b33619fb92410345"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2019-01-25T20:39:03.041Z",
+  "updatedAt": "2019-01-25T20:50:22.706Z",
   "devdoc": {
     "author": "Colin McCrae, colin.mccrae@gmail.com",
     "details": "Contract SimpleBet will inherit the contracts Ownable and Pausable from the OpenZeppelin libarary (/node_modules/openzeppelin-solidity/contracts)Pausable is a circuit breaker which blocks all contract functions expect withdrawl by the owner ",

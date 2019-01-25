@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-//import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import SimpleBet from "./contracts/SimpleBet.json";
 import getWeb3 from "./utils/getWeb3";
 
 import "./App.css";
 
 class App extends Component {
-//  state = { storageValue: 0, web3: null, accounts: null, contract: null, currentBalance: null };
   state = { web3: null, accounts: null, contract: null, currentBalance: null };
 
   componentDidMount = async () => {
@@ -65,10 +63,6 @@ class App extends Component {
     console.log('Binding resolveBet');
     this.resolveBetHere = this.resolveBetHere.bind (this);
     
-    // console.log('Binding refreshValues');
-    // this.refreshValuesHere = this.refreshValuesHere.bind (this);
-
-
   }  // End of constructor
 
   enableBettingHere () {
@@ -225,7 +219,7 @@ class App extends Component {
         <br />
         <br />
         <button onClick={ this.addBankrollHere }> Add 5 ETH to smart contract's bankroll </button>
-        <button onClick={ this.removeBankrollHere }> Withdraw 5 ETH from smart contract's bankroll </button>
+        <button onClick={ this.removeBankrollHere }> Withdraw 5 wei from smart contract's bankroll </button>
         <br />
         <br />
         <button onClick={ this.placeBetHereHeads }> Bet 1 ETH on Heads </button>

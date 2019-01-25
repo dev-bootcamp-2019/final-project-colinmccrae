@@ -84,4 +84,8 @@ The following steps will allow the project to be evaluated. The terminal command
 
 11. You should now be able to use the app's UI. When approving a transaction in Metamask, if you get a nonce mismatch error that is due to Metamask being out of sync with Ganache and you will need to reset both.
 
+Please press Ctrl + Shift + I and view the developer console in Google Chrome. All the contract actions will appear there as console log entries.
+
+There is a bug with the withdrawl from contract for large withdrawls, so it has been set to 5 wei for now.
+
 12. Ctrl+C to exit the development server in Terminal.
