@@ -116,7 +116,7 @@ class App extends Component {
   removeBankrollHere () {
     console.log ('Bankroll withdrawal function called.');
     const { accounts, contract } = this.state;
-    const howMuchToWithdraw = (5 * 10**18);
+    const howMuchToWithdraw = (5);
 
     contract.methods.withdrawBankroll(howMuchToWithdraw).send( { from: accounts[0] }, (err, result) => {
       if (err) {

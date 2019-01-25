@@ -550,12 +550,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xAEd06770Adf06E99092bd663f691f0279ea4B28C",
-      "transactionHash": "0x0054489dfebd3a3488e16cc8968d1bb2de650492df452c6aecc0aeb6ef5c3e6a"
+      "address": "0xFaD84395cF76720F7015cCF2eA3EcD98591c3Cf0",
+      "transactionHash": "0x63ca78663b27379420af3bd527b06043fb9b44e96844d79690f3907995f40554"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2019-01-24T14:05:48.440Z",
+  "updatedAt": "2019-01-25T20:39:03.020Z",
   "devdoc": {
     "methods": {}
   },
