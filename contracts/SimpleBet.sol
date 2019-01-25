@@ -43,7 +43,9 @@ contract SimpleBet is Ownable, Pausable {
     Status private playerStatus;
 
     event bankrollUpdated(uint _newBankroll);
-
+    event winBet(address _betAddress, uint _betSize);
+    event looseBet(address _betAddress, uint _betSize);
+    
     /// @dev Constructor with contract deployment inital settings 
     // minBet Minimum bet size (1 Ether = 1,000 Finney)
     // maxBet Maximum bet size (1 Ether = 1,000 Finney)
@@ -121,9 +123,8 @@ contract SimpleBet is Ownable, Pausable {
         payable
         onlyActive
         whenNotPaused {
-        if (playerStatus == Status.waitingForBet) {
-            resolveBet(msg.sender);
-        }
+        require (playerStatus != Status.waitingForResolve, "Previous bet has not been resolved.");
+
         /// @dev Update contract status from waiting for bet to waiting for resolve.
         playerStatus = Status.waitingForResolve;
 
@@ -161,9 +162,14 @@ contract SimpleBet is Ownable, Pausable {
 	
         if (bet.input == bet.betResult) {
             bet.win = true;
-            playerBet.transfer(2 * bet.betSize * 10**18);
+            playerBet.transfer(2 * bet.betSize);
+//            playerBet.transfer(2 * bet.betSize * 10**18);
+            emit winBet(playerBet, bet.betSize);
+            }
+        else {
+            emit looseBet(playerBet, bet.betSize);  
         }
-  
+            
 
     }
 
