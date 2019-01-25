@@ -47,11 +47,11 @@ contract SimpleBet is Ownable, Pausable {
     event looseBet(address _betAddress, uint _betSize);
     
     /// @dev Constructor with contract deployment inital settings 
-    // minBet Minimum bet size (1 Ether = 1,000 Finney)
-    // maxBet Maximum bet size (1 Ether = 1,000 Finney)
+    // minBet Minimum bet size (10 finney = 0.01 ether )
+    // maxBet Maximum bet size (10,000 finney = 10 ether)
     constructor() public {
         minBet = 10 finney;
-        maxBet = 1000 finney;
+        maxBet = 10000 finney;
     }
 
     /// @dev The fallback function (if player doesn't specify heads or tails) makes the default bet true (heads)
@@ -165,15 +165,13 @@ contract SimpleBet is Ownable, Pausable {
             playerBet.transfer(2 * bet.betSize);
 //            playerBet.transfer(2 * bet.betSize * 10**18);
             emit winBet(playerBet, bet.betSize);
-            }
+        }
         else {
             emit looseBet(playerBet, bet.betSize);  
         }
-            
-
     }
 
-
+//    function getStatus() public returns () {
 
 
 }
