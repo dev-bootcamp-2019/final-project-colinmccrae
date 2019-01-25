@@ -140,6 +140,7 @@ class App extends Component {
         console.log ('1 ETH bet on Heads successfully placed.');
       }
     }  );
+    this.forceUpdate()
   }
 
   placeBetHereTails () {
@@ -196,9 +197,6 @@ class App extends Component {
     // Update state with the result.
    // this.setState({ storageValue: response });
   };
-
-
-
 
 
   render() {
